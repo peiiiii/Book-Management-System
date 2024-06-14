@@ -18,15 +18,9 @@ public class AuthorServiceImpl implements AuthorService{
     @PersistenceContext
     private EntityManager entityManager;
 
-
-
     @Override
     public List<Author> getAllAuthor(){
-        // JPQL: Operates on entities, not directly on database tables. It’s portable across different databases because it abstracts the underlying SQL.
-        // Native SQL: Directly operates on database tables and columns. It’s database-specific and should be used when you need to perform complex queries that JPQL does not support.
         return entityManager.createQuery("SELECT a FROM Author a", Author.class).getResultList();
-        // Query query = entityManager.createNativeQuery("SELECT * FROM author", Author.class);
-        // return query.getResultList();
     }
 
     @Override
