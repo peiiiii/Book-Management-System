@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +21,6 @@ public class BookServiceImpl implements BookService{
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
-    private static final Logger logger = LoggerFactory.getLogger(BookServiceImpl.class);
 
     @Autowired
     public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository){
@@ -32,20 +30,17 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Optional<Book> getBookByTitle(String title){
-        logger.info("Get Book By Title: " + title);
         return bookRepository.findByTitle(title);
     }
 
     @Override
     public List<Book> getAllBook(){
-        logger.info("Get All Book");
         return bookRepository.findAll();
     }
 
     @Override
     @Transactional
     public Book saveBook(Book book){
-        logger.info("Save book: " + book);
         Set<Author> authors = new HashSet<>();
         for (Author author : book.getAuthors()) {
             System.out.println(author);
@@ -63,7 +58,6 @@ public class BookServiceImpl implements BookService{
     @Override
     @Transactional
     public void deleteBookByTitle(String title){
-        logger.info("Delete book by title: " + title);
 
         Optional<Book> book = bookRepository.findByTitle(title);
         if (book.isPresent()) {
@@ -71,7 +65,7 @@ public class BookServiceImpl implements BookService{
             Set<Author> authors = b.getAuthors();
             bookRepository.delete(b);
             for (Author author : authors) {
-                if (author.getBooks().size() == 1) { // The author only wrote this book
+                if (author.getBooks().size() == 1) { 
                     authorRepository.delete(author);
                 }
             }
@@ -82,7 +76,6 @@ public class BookServiceImpl implements BookService{
     @Override
     @Transactional
     public void deleteBookById(Long id){
-        logger.info("Delete book by Id: " + id);
 
         Optional<Book> book = bookRepository.findById(id);
         if (book.isPresent()) {
@@ -90,7 +83,7 @@ public class BookServiceImpl implements BookService{
             Set<Author> authors = b.getAuthors();
             bookRepository.delete(b);
             for (Author author : authors) {
-                if (author.getBooks().size() == 1) { // The author only wrote this book
+                if (author.getBooks().size() == 1) { 
                     authorRepository.delete(author);
                 }
             }
@@ -99,7 +92,6 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Book updateBook(Long id, Book book){
-        logger.info("Update book: " + book);
 
         Book b = bookRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Book not found with id: " + id));
