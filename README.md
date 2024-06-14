@@ -1,7 +1,7 @@
-# Booking
+# Book Management System
 
 ## Overview
-The Booking System is a Spring Boot application designed to manage books and authors. It provides RESTful APIs to create, update, retrieve, and delete books and authors. The system supports many-to-many relationships between books and authors.
+The Book Management System is a Spring Boot application designed to manage books and authors. It provides RESTful APIs to do the CRUD operations, and supports many-to-many relationships between books and authors.
 
 ## Features
 - Manage books and authors
