@@ -20,21 +20,19 @@ import jakarta.persistence.*;
 @Table(name = "book")
 public class Book {
     @Id
-    // @GeneratedValue(strategy = GenerationType.AUTO)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "title")
     private String title;
 
-    // Specifies the cascade types for the relationship. CascadeType.PERSIST means that when you save a Book, any associated Authors will also be saved. CascadeType.MERGE means that when you update a Book, any associated Authors will also be updated.
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
         name = "book_author",
         joinColumns = @JoinColumn(name = "book_id"),
         inverseJoinColumns = @JoinColumn(name = "author_id")
     )
-    @JsonIgnoreProperties("books") // Ignore the 'books' field in the Author entity
+    @JsonIgnoreProperties("books")
     private Set<Author> authors;
 
     @Column(name = "publication_date")

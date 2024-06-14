@@ -43,11 +43,7 @@ public class AuthorController {
 
     @DeleteMapping(params = "id")
     public ResponseEntity<?> deleteAuthorById(@RequestParam Long id){
-        try {
-            authorService.deleteAuthorById(id);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        authorService.deleteAuthorById(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

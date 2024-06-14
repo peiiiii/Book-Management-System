@@ -26,7 +26,6 @@ import lombok.Setter;
 @Table(name = "author")
 public class Author {
     @Id
-    // @GeneratedValue(strategy = GenerationType.AUTO)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
@@ -37,6 +36,6 @@ public class Author {
     private String lastName;
 
     @ManyToMany(mappedBy = "authors")
-    @JsonIgnoreProperties("authors") // Ignore the 'authors' field in the Book entity
+    @JsonIgnoreProperties("authors")
     private Set<Book> books;
 }

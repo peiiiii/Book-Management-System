@@ -50,21 +50,13 @@ public class BookController {
 
     @DeleteMapping(params = "title")
     public ResponseEntity<Void> deleteBookByTitle(@RequestParam String title){
-        try {
-            bookService.deleteBookByTitle(title);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        bookService.deleteBookByTitle(title);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @DeleteMapping(params = "id")
     public ResponseEntity<Void> deleteBookById(@RequestParam Long id){
-        try {
-            bookService.deleteBookById(id);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        bookService.deleteBookById(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
